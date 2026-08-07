@@ -1,8 +1,9 @@
 # EShopDistributed
 
 ## Overview
+## Overview
 This repository is part of my learning journey while following the Udemy course:  
-**Develop AI-Powered Distributed Architecture w/ PostgreSQL, Redis, RabbitMQ, Keycloak, Ollama, VectorDB using .NET Aspire**
+[**Develop AI-Powered Distributed Architecture w/ PostgreSQL, Redis, RabbitMQ, Keycloak, Ollama, VectorDB using .NET Aspire**](https://www.udemy.com/course/net-aspire-and-genai-develop-distributed-architectures)
 
 The goal is to build a distributed, cloud-native architecture powered by modern technologies and AI integration.  
 It serves as a **learning project** — open for viewing, but **not open for contributions**.
@@ -25,3 +26,7 @@ It serves as a **learning project** — open for viewing, but **not open for con
 - Redis caching for performance
 - AI-powered search/recommendation with Ollama + VectorDB
 - Orchestration and monitoring with .NET Aspire
+
+## Notes
+This repository reflects my independent implementation and modifications while studying the course.  
+It is a public learning project — open for viewing, but not open for contributions.

@@ -1,0 +1,38 @@
+@Catalog_HostAddress = https://localhost:7062/products
+
+### Get all products
+GET {{Catalog_HostAddress}}/
+Accept: application/json
+
+### Get product by ID
+GET {{Catalog_HostAddress}}/2
+Accept: application/json
+
+### Create a new product
+POST {{Catalog_HostAddress}}/
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Test Product",
+  "description": "This is a sample product created via POST.",
+  "price": 1999.99,
+  "imageUrl": "https://www.amazon.com/dp/B07FNJB8TT"
+}
+
+### Update an existing product
+PUT {{Catalog_HostAddress}}/1
+Content-Type: application/json
+Accept: application/json
+
+{
+  "id": 1,
+  "name": "Updated Product",
+  "description": "This product has been updated via PUT.",
+  "price": 2499.99,
+  "imageUrl": "https://www.amazon.com/dp/B07FNJB8TT"
+}
+
+### Delete a product
+DELETE {{Catalog_HostAddress}}/8
+Accept: application/json

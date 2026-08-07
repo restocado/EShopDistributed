@@ -1,6 +1,9 @@
 <Solution>
   <Folder Name="/src/" />
-  <Folder Name="/src/aspire/" />
+  <Folder Name="/src/aspire/">
+    <Project Path="src/AppHost/AppHost.csproj" />
+    <Project Path="src/ServiceDefaults/ServiceDefaults.csproj" />
+  </Folder>
   <Folder Name="/src/frontend/" />
   <Folder Name="/src/services/" />
 </Solution>

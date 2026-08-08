@@ -6,6 +6,7 @@
   </Folder>
   <Folder Name="/src/frontend/" />
   <Folder Name="/src/services/">
+    <Project Path="src/Basket/Basket.csproj" Id="b013cf8a-d52b-4248-897a-9a4d338170d4" />
     <Project Path="src/Catalog/Catalog.csproj" />
   </Folder>
 </Solution>

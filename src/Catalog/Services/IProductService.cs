@@ -1,10 +1,12 @@
-﻿namespace Catalog.Services;
+﻿using Shared.Contracts;
+
+namespace Catalog.Services;
 
 public interface IProductService
 {
-    Task CreateProductAsync(Product product);
+    Task<ProductDto> CreateProductAsync(ProductDto product);
     Task DeleteProductAsync(int id);
-    Task<Product?> GetProductAsync(int id);
-    Task<IEnumerable<Product>> GetProductsAsync();
-    Task UpdateProductAsync(int id, Product product);
+    Task<ProductDto?> GetProductAsync(int id);
+    Task<IEnumerable<ProductDto>> GetProductsAsync();
+    Task UpdateProductAsync(int id, ProductDto product);
 }

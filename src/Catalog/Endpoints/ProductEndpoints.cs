@@ -12,7 +12,7 @@ public static class ProductEndpoints
             return Results.Ok(products);
         })
         .WithName("GetAllProducts")
-        .Produces<List<Product>>(StatusCodes.Status200OK);
+        .Produces<List<ProductDto>>(StatusCodes.Status200OK);
 
         group.MapGet("/{id:int}", async (int id, IProductService service) =>
         {
@@ -24,18 +24,18 @@ public static class ProductEndpoints
             return Results.Ok(product);
         })
         .WithName("GetProductById")
-        .Produces<Product>(StatusCodes.Status200OK)
+        .Produces<ProductDto>(StatusCodes.Status200OK)
         .ProducesProblem(StatusCodes.Status404NotFound);
 
-        group.MapPost("/", async (Product product, IProductService service) =>
+        group.MapPost("/", async (ProductDto product, IProductService service) =>
         {
-            await service.CreateProductAsync(product);
-            return Results.CreatedAtRoute("GetProductById", new { id = product.Id }, product);
+            var created = await service.CreateProductAsync(product);
+            return Results.CreatedAtRoute("GetProductById", new { id = created.Id }, created);
         })
         .WithName("CreateProduct")
-        .Produces(StatusCodes.Status201Created);
+        .Produces<ProductDto>(StatusCodes.Status201Created);
 
-        group.MapPut("/{id:int}", async (int id, Product product, IProductService service) =>
+        group.MapPut("/{id:int}", async (int id, ProductDto product, IProductService service) =>
         {
             var existing = await service.GetProductAsync(id);
             if (existing is null)
@@ -60,6 +60,5 @@ public static class ProductEndpoints
         .WithName("DeleteProductById")
         .Produces(StatusCodes.Status204NoContent)
         .ProducesProblem(StatusCodes.Status404NotFound);
-
     }
 }

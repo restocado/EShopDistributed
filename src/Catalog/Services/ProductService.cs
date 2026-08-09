@@ -1,16 +1,17 @@
-﻿using Catalog.Models;       // your EF Core entity
-using Shared.Contracts;     // your DTO
-using Microsoft.EntityFrameworkCore;
+﻿using MassTransit;
+using Shared.Messaging.Events;
 
 namespace Catalog.Services;
 
 public class ProductService : IProductService
 {
     private readonly ProductDbContext _dbContext;
+    private readonly IBus _bus;
 
-    public ProductService(ProductDbContext dbContext)
+    public ProductService(ProductDbContext dbContext, IBus bus)
     {
         _dbContext = dbContext;
+        _bus = bus;
     }
 
     public async Task<IEnumerable<ProductDto>> GetProductsAsync()
@@ -73,7 +74,9 @@ public class ProductService : IProductService
     {
         var existing = await _dbContext.Products.FindAsync(id);
         if (existing is null)
-            throw new Exception($"Product {id} was not found.");
+            throw new KeyNotFoundException($"Product {id} was not found.");
+
+        bool priceChanged = existing.Price != product.Price;
 
         existing.Name = product.Name;
         existing.Description = product.Description;
@@ -81,6 +84,20 @@ public class ProductService : IProductService
         existing.ImageUrl = product.ImageUrl;
 
         await _dbContext.SaveChangesAsync();
+
+        if (priceChanged)
+        {
+            var evt = new ProductPriceChangedIntegrationEvent(
+                productId: existing.Id,
+                name: existing.Name,
+                description: existing.Description,
+                price: existing.Price,
+                imageUrl: existing.ImageUrl,
+                correlationId: Guid.NewGuid(),
+                source: nameof(ProductService) 
+            );
+            await _bus.Publish(evt);
+        }
     }
 
     public async Task DeleteProductAsync(int id)

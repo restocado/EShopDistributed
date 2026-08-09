@@ -1,6 +1,3 @@
-using Basket;
-using Basket.ApiClients;
-
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
@@ -8,6 +5,8 @@ builder.AddServiceDefaults();
 builder.AddRedisDistributedCache(connectionName: "basket-cache");
 builder.Services.Configure<CacheSettings>(
     builder.Configuration.GetSection("CacheSettings"));
+
+builder.Services.AddMassTransitWithAssemblies(typeof(BasketMessagingAnchor).Assembly);
 
 builder.Services.AddScoped<IBasketService, BasketService>();
 

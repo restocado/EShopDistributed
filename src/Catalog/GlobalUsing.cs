@@ -4,3 +4,6 @@ global using Catalog.Data;
 global using Catalog.Services;
 global using Catalog.Endpoints;
 global using Shared.Contracts;
+global using Shared.Messaging.Extensions;
+global using Catalog.Messaging;
+

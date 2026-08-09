@@ -26,6 +26,19 @@ public class BasketService : IBasketService
         await _cache.RemoveAsync(username);
     }
 
+    public async Task<IEnumerable<ShoppingCart>> GetBasketsAsync()
+    {
+        // For demo purposes: just return one basket
+        // test username
+        string username = "john_doe";
+        var basket = await GetBasketAsync(username);
+
+        if (basket is null)
+            return Enumerable.Empty<ShoppingCart>();
+
+        return new List<ShoppingCart> { basket };
+    }
+
     public async Task<ShoppingCart?> GetBasketAsync(string username)
     {
         var basket = await _cache.GetStringAsync(username);

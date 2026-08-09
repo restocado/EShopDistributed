@@ -3,25 +3,25 @@
 public abstract class IntegrationEvent
 {
     // Unique identifier for this event instance
-    public Guid EventId { get; }
+    public Guid EventId { get; init;  }
 
     // When the event was created
-    public DateTime OccurredOn { get; }
+    public DateTimeOffset OccurredOn { get; init; }
 
     // Logical type name for consumers
-    public string EventType => GetType().AssemblyQualifiedName ?? string.Empty;
+    public string EventType => GetType().Name;
 
     // Optional correlation ID for tracing across services
-    public Guid? CorrelationId { get; }
+    public Guid? CorrelationId { get; init; }
 
     // Optional source service name (e.g., "Catalog")
-    public string? Source { get; }
+    public string? Source { get; init; }
 
     // Default constructor (no metadata provided)
     protected IntegrationEvent()
     {
         EventId = Guid.NewGuid();
-        OccurredOn = DateTime.UtcNow;
+        OccurredOn = DateTimeOffset.UtcNow;
     }
 
     // Constructor with correlation ID

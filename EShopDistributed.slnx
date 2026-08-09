@@ -8,6 +8,9 @@
   <Folder Name="/src/services/">
     <Project Path="src/Basket/Basket.csproj" Id="b013cf8a-d52b-4248-897a-9a4d338170d4" />
     <Project Path="src/Catalog/Catalog.csproj" />
+  </Folder>
+  <Folder Name="/src/shared/">
     <Project Path="src/Shared.Contracts/Shared.Contracts.csproj" Id="6aa1c420-0613-4a88-b350-3feff86d5490" />
+    <Project Path="src/Shared.Messaging/Shared.Messaging.csproj" Id="9b675bd5-9b67-4ebb-b4a5-4d4c32dda34f" />
   </Folder>
 </Solution>

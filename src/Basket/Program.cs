@@ -5,7 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
 
-builder.AddRedisDistributedCache(connectionName: "cache");
+builder.AddRedisDistributedCache(connectionName: "basket-cache");
 builder.Services.Configure<CacheSettings>(
     builder.Configuration.GetSection("CacheSettings"));
 

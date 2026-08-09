@@ -1,6 +1,6 @@
 var builder = DistributedApplication.CreateBuilder(args);
 
-// backing services
+// backing services | infrastructure
 var postgres = builder
     .AddPostgres("postgres")
     .WithContainerName("eshop-postgres")
@@ -10,23 +10,32 @@ var postgres = builder
 
 var catalogDatabase = postgres.AddDatabase("catalogdb");
 
-var cache = builder
-    .AddRedis("cache")
+var basketDatabase = builder
+    .AddRedis("basket-cache")
     .WithContainerName("eshop-cache")
     .WithRedisInsight()
     .WithDataVolume()
     .WithLifetime(ContainerLifetime.Persistent);
 
-// projects
+var rabbitmq = builder
+    .AddRabbitMQ("rabbitmq")
+    .WithContainerName("eshop-rabbitmq")
+    .WithManagementPlugin()
+    .WithDataVolume()
+    .WithLifetime(ContainerLifetime.Persistent);
+
+// projects | services
 var catalog = builder
     .AddProject<Projects.Catalog>("catalog")
-    .WithReference(catalogDatabase)
-    .WaitFor(catalogDatabase);
+    .WithReference(catalogDatabase).WaitFor(catalogDatabase)
+    .WithReference(rabbitmq).WaitFor(rabbitmq);
 
 var basket = builder
     .AddProject<Projects.Basket>("basket")
     .WithReference(catalog)
-    .WithReference(cache)
-    .WaitFor(cache);
+    .WithReference(basketDatabase).WaitFor(basketDatabase)
+    .WithReference(rabbitmq).WaitFor(rabbitmq);
+
+// frontend
 
 builder.Build().Run();

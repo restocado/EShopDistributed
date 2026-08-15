@@ -4,7 +4,9 @@
     <Project Path="src/AppHost/AppHost.csproj" />
     <Project Path="src/ServiceDefaults/ServiceDefaults.csproj" />
   </Folder>
-  <Folder Name="/src/frontend/" />
+  <Folder Name="/src/frontend/">
+    <Project Path="src/AppFrontend/AppFrontend.csproj" Id="d8268a85-946d-49ca-8b3c-39112f196f8a" />
+  </Folder>
   <Folder Name="/src/services/">
     <Project Path="src/Basket/Basket.csproj" Id="b013cf8a-d52b-4248-897a-9a4d338170d4" />
     <Project Path="src/Catalog/Catalog.csproj" />

@@ -1,6 +1,11 @@
 var builder = DistributedApplication.CreateBuilder(args);
 
 // backing services | infrastructure
+var cache = builder
+    .AddRedis("cache")
+    .WithContainerName("eshop-common-cache")
+    .WithLifetime(ContainerLifetime.Persistent);
+
 var postgres = builder
     .AddPostgres("postgres")
     .WithContainerName("eshop-postgres")
@@ -44,5 +49,10 @@ var basket = builder
     .WithReference(keycloak).WaitFor(keycloak);
 
 // frontend
+builder.AddProject<Projects.AppFrontend>("blazor-webapp")
+    .WithExternalHttpEndpoints()
+    .WithReference(cache).WaitFor(cache)
+    .WithReference(catalog).WaitFor(catalog)
+    .WithReference(basket).WaitFor(basket);
 
 builder.Build().Run();

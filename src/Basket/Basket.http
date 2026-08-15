@@ -1,8 +1,10 @@
 @Basket_HostAddress = https://localhost:7290/basket
-
+@Access_Token = eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJPQ201UmVUZzdYS245S2RxT1kwOGZsUkxvNmNyVF9BaE9rS0tydnJObnVNIn0.eyJleHAiOjE3ODY3NjkyMTksImlhdCI6MTc4Njc2ODkxOSwianRpIjoib25ydHJvOjA4NTMxMDQzLTdkZmMtYWM0ZS1kZjAyLWE1Njc0YzEzNmZjZiIsImlzcyI6Imh0dHBzOi8vbG9jYWxob3N0OjYyNzIyL3JlYWxtcy9lc2hvcCIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiJhN2Q0OTU5NC1iZjhkLTRkZDYtOTJmMS0wMWRjYmRiNGM1NDEiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJlc2hvcC1jbGllbnQiLCJzaWQiOiIyMTMwNGVjOS1iOWIyLTM3YmYtZWI0ZC01Mjc2MzQ4YmUxZGQiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbIi8qIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIiwiZGVmYXVsdC1yb2xlcy1lc2hvcCJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwibmFtZSI6InRlc3QgdGVzdCIsInByZWZlcnJlZF91c2VybmFtZSI6InRlc3QiLCJnaXZlbl9uYW1lIjoidGVzdCIsImZhbWlseV9uYW1lIjoidGVzdCIsImVtYWlsIjoidGVzdEBleGFtcGxlLmNvbSJ9.O0wI7-gx8FuG_tRLymVSIqLukUBDWWFsOwKaGVi-I94sufDkb6eLigjrgovioSSZkOHZWochG9RevKdGhbSC-BZpqmRrENM9YilglMCQTCEg9iEKaezOIxtwO3KIkN8Le8zyvRv0F7HRBjyb220Q6NFNcHI0uyKRhYFdBBOtHk9aS-Gdk6QOFpTP-chbgVcgklMrjlGbWygiW56vEHCCFs4ZNN8AF-RfKVfI-cmKae7m-D2myhe7mjRrfcQzCt4m-D9BRkIdh1uIhW9QCYfymlSJnCfZ6Yalbyv4qF9VWA4TgufYc5minbNsm6QOIkRqTlXI_IQ2X5H1Btkmpfw_Qg
+  
 ### Get basket by username
 GET {{Basket_HostAddress}}/john_doe
 Accept: application/json
+Authorization: Bearer {{Access_Token}}
 
 ###
 
@@ -10,6 +12,7 @@ Accept: application/json
 POST {{Basket_HostAddress}}/
 Content-Type: application/json
 Accept: application/json
+Authorization: Bearer {{Access_Token}}
 
 {
   "userName": "john_doe",
@@ -29,6 +32,7 @@ Accept: application/json
 POST {{Basket_HostAddress}}/
 Content-Type: application/json
 Accept: application/json
+Authorization: Bearer {{Access_Token}}
 
 {
   "userName": "john_doe",
@@ -59,3 +63,12 @@ Accept: application/json
 ### Delete basket by username
 DELETE {{Basket_HostAddress}}/john_doe
 Accept: application/json
+Authorization: Bearer {{Access_Token}}
+
+###
+
+### Get token from keycloak
+POST https://localhost:62722/realms/eshop/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=password&client_id=eshop-client&scope=email openid&username=test&password=1234
